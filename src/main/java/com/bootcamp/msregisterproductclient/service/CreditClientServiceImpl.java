@@ -33,4 +33,8 @@ public class CreditClientServiceImpl implements ICreditClientService{
     }
 
 
+    @Override
+    public Mono<CreditClient> findCreditClient(String code, String numberDocument, String typeDocument) {
+        return iCreditClientRepository.findByCodeAndClientNumberDocumentAndClientDocumentType(code,numberDocument,typeDocument);
+    }
 }

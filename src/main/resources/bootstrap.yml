@@ -3,4 +3,5 @@ spring:
     name: ms-register-product-client
   cloud:
     config:
-      url: http://localhost:8888
+      enabled: true
+      uri: http://localhost:8090

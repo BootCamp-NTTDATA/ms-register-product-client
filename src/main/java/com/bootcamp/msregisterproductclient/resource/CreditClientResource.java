@@ -65,4 +65,10 @@ public class CreditClientResource extends MapperUtil {
                 .switchIfEmpty(Mono.error(new Exception()))
                 .flatMap(x-> iCreditClientService.deleteById(creditClientDto.getId()));
     }
+
+    public Mono<CreditClientDto> findCreditByClient( String code, String numberDocument, String typeDocument){
+            return iCreditClientService.findCreditClient(code, numberDocument, typeDocument)
+                    .switchIfEmpty(Mono.error(new Exception()))
+                    .map(creditClient -> map(creditClient, CreditClientDto.class));
+    }
 }

@@ -9,7 +9,7 @@ import reactor.core.publisher.Mono;
 
 
 @RestController
-@RequestMapping("/api/credit-card/client")
+@RequestMapping("/api/register/credit-card/client")
 public class CreditCardClientController {
     @Autowired
     private CreditCardClientResource creditCardClientResource;

@@ -1,16 +1,15 @@
 package com.bootcamp.msregisterproductclient.controller;
 
-import com.bootcamp.msregisterproductclient.dto.CreditCardClientDto;
 import com.bootcamp.msregisterproductclient.dto.CreditClientDto;
-import com.bootcamp.msregisterproductclient.resource.CreditCardClientResource;
 import com.bootcamp.msregisterproductclient.resource.CreditClientResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+
 @RestController
-@RequestMapping("/api/credit/client")
+@RequestMapping("/api/register/credit/client")
 public class CreditClientController {
 
     @Autowired
@@ -33,5 +32,10 @@ public class CreditClientController {
     @DeleteMapping
     public Mono<Void> delete(@RequestBody CreditClientDto creditClientDto){
         return creditClientResource.delete(creditClientDto);
+    }
+
+    @GetMapping("/code/{code}/number/{number}/document/{typeDocument}")
+    public Mono<CreditClientDto> findCreditByClient(@PathVariable  String code, @PathVariable String number, @PathVariable String typeDocument) {
+        return creditClientResource.findCreditByClient(code, number, typeDocument);
     }
 }
