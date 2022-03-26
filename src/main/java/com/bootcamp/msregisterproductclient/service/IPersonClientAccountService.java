@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Mono;
 
 public interface IPersonClientAccountService extends ICrud<PersonClientAccount, String> {
-    Mono<PersonClientAccount> findByClientNumberDocument(String numberDocument);
+    Mono<PersonClientAccount> findByPersonNumberDocument(String numberDocument);
 }

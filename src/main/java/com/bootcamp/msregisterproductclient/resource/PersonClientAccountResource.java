@@ -5,7 +5,6 @@ import com.bootcamp.msregisterproductclient.entity.PersonClientAccount;
 import com.bootcamp.msregisterproductclient.service.IPersonClientAccountService;
 import com.bootcamp.msregisterproductclient.util.MapperUtil;
 import com.bootcamp.msregisterproductclient.webclient.ClientServiceImpl;
-import com.bootcamp.msregisterproductclient.webclient.dto.PersonClientDto;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +24,12 @@ public class PersonClientAccountResource extends MapperUtil {
     private ClientServiceImpl clientService;
 
     public Mono<PersonClientAccountDto> create(PersonClientAccountDto personClientAccountDto){
+
         PersonClientAccount personClientAccount = map(personClientAccountDto,PersonClientAccount.class);
         personClientAccount.setId(new ObjectId().toString());
         personClientAccount.setCreatedAt(LocalDateTime.now());
 
-        String typDocumentClient = personClientAccount.getClient().getDocumentType();
+        String typDocumentClient = personClientAccount.getPerson().getDocumentType();
 
         if (typDocumentClient.equals(TypeDocument.DNI.name()) || typDocumentClient.equals(TypeDocument.PASSPORT.name())){
             if (personClientAccount.getTypeAccount().getAllowPerson()){
@@ -65,8 +65,8 @@ public class PersonClientAccountResource extends MapperUtil {
                 .flatMap(x-> iPersonClientAccountService.deleteById(personClientAccountDto.getId()));
     }
 
-    public Mono<PersonClientAccountDto> findByClientNumberDocument(String numberDocument){
-        return iPersonClientAccountService.findByClientNumberDocument(numberDocument)
+    public Mono<PersonClientAccountDto> findByPersonNumberDocument(String numberDocument){
+        return iPersonClientAccountService.findByPersonNumberDocument(numberDocument)
                 .map(x -> map(x, PersonClientAccountDto.class));
     }
 }

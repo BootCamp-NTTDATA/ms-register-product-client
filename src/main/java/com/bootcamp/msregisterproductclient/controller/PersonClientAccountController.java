@@ -13,7 +13,7 @@ import reactor.core.publisher.Mono;
 public class PersonClientAccountController {
 
     @Autowired
-    PersonClientAccountResource personClientAccountResource;
+    private PersonClientAccountResource personClientAccountResource;
 
     @PostMapping
     public Mono<PersonClientAccountDto> create(@RequestBody PersonClientAccountDto personClientAccountDto){
@@ -36,7 +36,7 @@ public class PersonClientAccountController {
     }
 
     @GetMapping("/numberDocument/{numberDocument}")
-    public Mono<PersonClientAccountDto> findByClientNumberDocument(@PathVariable String numberDocument){
-        return personClientAccountResource.findByClientNumberDocument(numberDocument);
+    public Mono<PersonClientAccountDto> findByPersonNumberDocument(@PathVariable String numberDocument){
+        return personClientAccountResource.findByPersonNumberDocument(numberDocument);
     }
 }

@@ -14,7 +14,9 @@ public class CompanyClientAccount extends BaseEntity{
     private String code;
     private String accountNumber;
     private LocalDateTime openingDate;
+    private Client company;
+    private List<Client> holders;
+    private List<Client> signers;
     private TypeAccount typeAccount;
-    private Client client;
-    private List<Responsible> responsible;
+    private boolean state;
 }

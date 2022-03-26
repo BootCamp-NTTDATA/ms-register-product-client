@@ -9,8 +9,9 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/api/register/account/company")
+@RequestMapping("/api/account/company")
 public class CompanyClientAccountController {
+
     @Autowired
     private CompanyClientAccountResource companyClientAccountResource;
 
@@ -18,6 +19,7 @@ public class CompanyClientAccountController {
     public Mono<CompanyClientAccountDto> create(@RequestBody CompanyClientAccountDto companyClientAccountDto){
         return companyClientAccountResource.create(companyClientAccountDto);
     }
+
     @PutMapping
     public Mono<CompanyClientAccountDto> update(@RequestBody CompanyClientAccountDto companyClientAccountDto){
         return companyClientAccountResource.update(companyClientAccountDto);

@@ -16,7 +16,7 @@ public class PersonClientAccountDto {
     private String code;
     private String accountNumber;
     private LocalDateTime openingDate;
+    private Client person;
     private TypeAccount typeAccount;
-    private Client client;
     private boolean state;
 }

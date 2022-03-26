@@ -6,6 +6,7 @@ import com.bootcamp.msregisterproductclient.entity.CompanyClientAccount;
 import com.bootcamp.msregisterproductclient.entity.PersonClientAccount;
 import com.bootcamp.msregisterproductclient.util.MapperUtil;
 import com.bootcamp.msregisterproductclient.service.ICompanyClientAccountService;
+import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,28 +14,28 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
-
+@Slf4j
 @Service
-public class CompanyClientAccountResource  extends MapperUtil {
+public class CompanyClientAccountResource extends MapperUtil {
 
     @Autowired
     private ICompanyClientAccountService iCompanyClientAccountService;
 
-    public Mono<CompanyClientAccountDto> create(CompanyClientAccountDto companyClientAccountDto){
+    public Mono<CompanyClientAccountDto> create(CompanyClientAccountDto companyClientAccountDto) {
 
         CompanyClientAccount companyClientAccount = map(companyClientAccountDto, CompanyClientAccount.class);
         companyClientAccount.setId(new ObjectId().toString());
         companyClientAccount.setCreatedAt(LocalDateTime.now());
 
-        String typDocumentClient = companyClientAccountDto.getClient().getDocumentType();
-
+        String typDocumentClient = companyClientAccountDto.getCompany().getDocumentType();
+        log.info(companyClientAccount.getCompany().getName());
         if (typDocumentClient.equals(TypeDocument.RUC.name())){
-            if (companyClientAccount.getTypeAccount().getAllowPerson()){
+            if (companyClientAccount.getTypeAccount().getAllowCompany()){
                 Mono<CompanyClientAccount> entity = iCompanyClientAccountService.save(companyClientAccount);
                 return entity.map(x -> map(x, CompanyClientAccountDto.class));
             }
         }
-        return Mono.error(new Exception());
+        return null;
 
         /*
         String typeAccount = companyClientAccount.getTypeAccount().getName();
@@ -49,11 +50,11 @@ public class CompanyClientAccountResource  extends MapperUtil {
         }*/
     }
 
-    public Flux<CompanyClientAccountDto> findAll(){
+    public Flux<CompanyClientAccountDto> findAll() {
         return iCompanyClientAccountService.findAll().map(x->map(x,CompanyClientAccountDto.class));
     }
 
-    public Mono<CompanyClientAccountDto> update(CompanyClientAccountDto companyClientAccountDto){
+    public Mono<CompanyClientAccountDto> update(CompanyClientAccountDto companyClientAccountDto) {
         return iCompanyClientAccountService.findById(companyClientAccountDto.getId())
                 .switchIfEmpty(Mono.error(new Exception()))
                 .flatMap(p->{
@@ -62,17 +63,16 @@ public class CompanyClientAccountResource  extends MapperUtil {
                     return iCompanyClientAccountService.save(companyClientAccount).map(y->map(y,CompanyClientAccountDto.class));
                 });
     }
-    public Mono<CompanyClientAccountDto> findById(String id){
+
+    public Mono<CompanyClientAccountDto> findById(String id) {
         return iCompanyClientAccountService.findById(id)
                 .switchIfEmpty(Mono.error(new Exception()))
                 .map(x-> map(x,CompanyClientAccountDto.class));
     }
 
-    public Mono<Void> delete(CompanyClientAccountDto companyClientAccountDto)
-    {
+    public Mono<Void> delete(CompanyClientAccountDto companyClientAccountDto) {
         return iCompanyClientAccountService.findById(companyClientAccountDto.getId())
                 .switchIfEmpty(Mono.error(new Exception()))
                 .flatMap(x-> iCompanyClientAccountService.deleteById(companyClientAccountDto.getId()));
     }
-
 }

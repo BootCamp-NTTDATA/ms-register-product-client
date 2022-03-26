@@ -18,8 +18,9 @@ public class CompanyClientAccountDto {
     private String code;
     private String accountNumber;
     private LocalDateTime openingDate;
-    private boolean state;
-    private Client client;
+    private Client company;
+    private List<Client> holders;
+    private List<Client> signers;
     private TypeAccount typeAccount;
-    private List<Responsible> responsible;
+    private boolean state;
 }

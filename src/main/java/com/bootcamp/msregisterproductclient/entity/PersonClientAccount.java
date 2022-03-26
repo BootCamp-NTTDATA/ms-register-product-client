@@ -14,6 +14,6 @@ public class PersonClientAccount extends BaseEntity {
     private String accountNumber;
     private LocalDateTime openingDate;
     private TypeAccount typeAccount;
-    private Client client;
+    private Client person;
     private boolean state;
 }
