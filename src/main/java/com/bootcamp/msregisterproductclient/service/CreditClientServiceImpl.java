@@ -12,6 +12,7 @@ public class CreditClientServiceImpl implements ICreditClientService{
 
     @Autowired
     ICreditClientRepository iCreditClientRepository;
+
     @Override
     public Mono<CreditClient> save(CreditClient creditClient) {
         return iCreditClientRepository.save(creditClient);
@@ -32,9 +33,8 @@ public class CreditClientServiceImpl implements ICreditClientService{
         return iCreditClientRepository.findAll();
     }
 
-
     @Override
-    public Mono<CreditClient> findCreditClient(String code, String numberDocument, String typeDocument) {
-        return iCreditClientRepository.findByCodeAndClientNumberDocumentAndClientDocumentType(code,numberDocument,typeDocument);
+    public Mono<CreditClient> findByClientNumberDocument(String numberDocument) {
+        return iCreditClientRepository.findByClientNumberDocument(numberDocument);
     }
 }

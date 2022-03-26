@@ -25,7 +25,7 @@ public class PersonClientAccountResource extends MapperUtil {
 
     public Mono<PersonClientAccountDto> create(PersonClientAccountDto personClientAccountDto){
 
-        PersonClientAccount personClientAccount = map(personClientAccountDto,PersonClientAccount.class);
+        PersonClientAccount personClientAccount = map(personClientAccountDto, PersonClientAccount.class);
         personClientAccount.setId(new ObjectId().toString());
         personClientAccount.setCreatedAt(LocalDateTime.now());
 
@@ -34,7 +34,7 @@ public class PersonClientAccountResource extends MapperUtil {
         if (typDocumentClient.equals(TypeDocument.DNI.name()) || typDocumentClient.equals(TypeDocument.PASSPORT.name())){
             if (personClientAccount.getTypeAccount().getAllowPerson()){
                 Mono<PersonClientAccount> entity = iPersonClientAccountService.save(personClientAccount);
-                return entity.map(x -> map(x,PersonClientAccountDto.class));
+                return entity.map(x -> map(x, PersonClientAccountDto.class));
             }
         }
         return null;

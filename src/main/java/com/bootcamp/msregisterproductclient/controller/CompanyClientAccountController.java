@@ -1,7 +1,6 @@
 package com.bootcamp.msregisterproductclient.controller;
 
 import com.bootcamp.msregisterproductclient.dto.CompanyClientAccountDto;
-import com.bootcamp.msregisterproductclient.dto.CreditCardClientDto;
 import com.bootcamp.msregisterproductclient.resource.CompanyClientAccountResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

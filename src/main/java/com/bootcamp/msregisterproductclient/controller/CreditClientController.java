@@ -7,9 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-
 @RestController
-@RequestMapping("/api/register/credit/client")
+@RequestMapping("/api/credit/client")
 public class CreditClientController {
 
     @Autowired
@@ -19,6 +18,7 @@ public class CreditClientController {
     public Mono<CreditClientDto> create(@RequestBody CreditClientDto creditClientDto){
         return creditClientResource.create(creditClientDto);
     }
+
     @PutMapping
     public Mono<CreditClientDto> update(@RequestBody CreditClientDto creditClientDto){
         return creditClientResource.update(creditClientDto);
@@ -34,8 +34,8 @@ public class CreditClientController {
         return creditClientResource.delete(creditClientDto);
     }
 
-    @GetMapping("/code/{code}/number/{number}/document/{typeDocument}")
-    public Mono<CreditClientDto> findCreditByClient(@PathVariable  String code, @PathVariable String number, @PathVariable String typeDocument) {
-        return creditClientResource.findCreditByClient(code, number, typeDocument);
+    @GetMapping("/numberDocument/{numberDocument}")
+    public Mono<CreditClientDto> findByClientNumberDocument(@PathVariable String numberDocument){
+        return creditClientResource.findByClientNumberDocument(numberDocument);
     }
 }
