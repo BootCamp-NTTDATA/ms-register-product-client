@@ -34,4 +34,9 @@ public class CompanyClientAccountController {
     public Mono<Void> delete(@RequestBody CompanyClientAccountDto companyClientAccountDto){
         return companyClientAccountResource.delete(companyClientAccountDto);
     }
+
+    @GetMapping("/numberDocument/{numberDocument}")
+    public Mono<CompanyClientAccountDto> findByCompanyNumberDocument(@PathVariable String numberDocument){
+        return companyClientAccountResource.findByCompanyNumberDocument(numberDocument);
+    }
 }

@@ -75,4 +75,9 @@ public class CompanyClientAccountResource extends MapperUtil {
                 .switchIfEmpty(Mono.error(new Exception()))
                 .flatMap(x-> iCompanyClientAccountService.deleteById(companyClientAccountDto.getId()));
     }
+
+    public Mono<CompanyClientAccountDto> findByCompanyNumberDocument(String numberDocument){
+        return iCompanyClientAccountService.findByCompanyNumberDocument(numberDocument)
+                .map(x -> map(x, CompanyClientAccountDto.class));
+    }
 }
