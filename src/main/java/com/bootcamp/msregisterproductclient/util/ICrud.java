@@ -8,6 +8,4 @@ public interface ICrud <T,V> {
     Mono<Void>deleteById(V v);
     Mono<T> findById(V v);
     Flux<T> findAll();
-   
-
 }

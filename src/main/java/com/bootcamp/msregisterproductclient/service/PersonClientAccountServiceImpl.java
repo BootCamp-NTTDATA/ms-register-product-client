@@ -11,6 +11,7 @@ public class PersonClientAccountServiceImpl implements IPersonClientAccountServi
 
     @Autowired
     IPersonClientAccountRepository iPersonClientAccountRepository;
+
     @Override
     public Mono<PersonClientAccount> save(PersonClientAccount personClientAccount) {
         return iPersonClientAccountRepository.save(personClientAccount);
@@ -29,5 +30,10 @@ public class PersonClientAccountServiceImpl implements IPersonClientAccountServi
     @Override
     public Flux<PersonClientAccount> findAll() {
         return iPersonClientAccountRepository.findAll();
+    }
+
+    @Override
+    public Mono<PersonClientAccount> findByClientNumberDocument(String numberDocument) {
+        return iPersonClientAccountRepository.findByClientNumberDocument(numberDocument);
     }
 }

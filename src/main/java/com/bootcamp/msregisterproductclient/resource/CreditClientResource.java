@@ -22,7 +22,7 @@ public class CreditClientResource extends MapperUtil {
     public Mono<CreditClientDto> create(CreditClientDto creditClientDto) {
         CreditClient creditClient = map(creditClientDto,CreditClient.class);
 
-       if (creditClient.getClient().getClientType().equals(TypeClient.Company.name())){
+       if (creditClient.getClient().getDocumentType().equals(TypeDocument.DNI.name())){
             creditClient.setId(new ObjectId().toString());
             creditClient.setCreatedAt(LocalDateTime.now());
             Mono<CreditClient> entity = iCreditClientService.save(creditClient);

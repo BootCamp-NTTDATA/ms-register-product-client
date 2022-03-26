@@ -1,7 +1,9 @@
 package com.bootcamp.msregisterproductclient.resource;
 
 import com.bootcamp.msregisterproductclient.dto.CompanyClientAccountDto;
+import com.bootcamp.msregisterproductclient.dto.PersonClientAccountDto;
 import com.bootcamp.msregisterproductclient.entity.CompanyClientAccount;
+import com.bootcamp.msregisterproductclient.entity.PersonClientAccount;
 import com.bootcamp.msregisterproductclient.util.MapperUtil;
 import com.bootcamp.msregisterproductclient.service.ICompanyClientAccountService;
 import org.bson.types.ObjectId;
@@ -20,8 +22,21 @@ public class CompanyClientAccountResource  extends MapperUtil {
 
     public Mono<CompanyClientAccountDto> create(CompanyClientAccountDto companyClientAccountDto){
 
-        CompanyClientAccount companyClientAccount = map(companyClientAccountDto,CompanyClientAccount.class);
+        CompanyClientAccount companyClientAccount = map(companyClientAccountDto, CompanyClientAccount.class);
+        companyClientAccount.setId(new ObjectId().toString());
+        companyClientAccount.setCreatedAt(LocalDateTime.now());
 
+        String typDocumentClient = companyClientAccountDto.getClient().getDocumentType();
+
+        if (typDocumentClient.equals(TypeDocument.RUC.name())){
+            if (companyClientAccount.getTypeAccount().getAllowPerson()){
+                Mono<CompanyClientAccount> entity = iCompanyClientAccountService.save(companyClientAccount);
+                return entity.map(x -> map(x, CompanyClientAccountDto.class));
+            }
+        }
+        return Mono.error(new Exception());
+
+        /*
         String typeAccount = companyClientAccount.getTypeAccount().getName();
         String typeClient = companyClientAccount.getClient().getClientType();
         if(typeAccount.equals(TypeAccount.CURRENTACCOUNT.name()) && typeClient.equals(TypeClient.Company.name())){
@@ -31,7 +46,7 @@ public class CompanyClientAccountResource  extends MapperUtil {
             return entity.map(x->map(x,CompanyClientAccountDto.class));
         }else{
             return Mono.error(new Exception());
-        }
+        }*/
     }
 
     public Flux<CompanyClientAccountDto> findAll(){

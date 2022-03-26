@@ -32,5 +32,11 @@ public  class MapperUtil {
         Person,
     }
 
+    public enum TypeDocument{
+        DNI,
+        PASSPORT,
+        RUC
+    }
+
 
 }
