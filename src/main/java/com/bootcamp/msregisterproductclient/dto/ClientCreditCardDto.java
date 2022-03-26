@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CreditCardClientDto {
+public class ClientCreditCardDto {
     private String id;
     private String code;
     private String creditCardNumber;

@@ -1,6 +1,5 @@
 package com.bootcamp.msregisterproductclient.dto;
 
-import com.bootcamp.msregisterproductclient.entity.BankAccount;
 import com.bootcamp.msregisterproductclient.entity.Client;
 import com.bootcamp.msregisterproductclient.entity.TypeCredit;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -12,7 +11,7 @@ import java.math.BigDecimal;
 @Setter
 @Getter
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CreditClientDto {
+public class ClientCreditDto {
     private String id;
     private String code;
     private BigDecimal amountGiven;
