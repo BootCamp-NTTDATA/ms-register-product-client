@@ -7,9 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-
 @RestController
-@RequestMapping("/api/register/credit-card/client")
+@RequestMapping("/api/credit-card/client")
 public class CreditCardClientController {
     @Autowired
     private CreditCardClientResource creditCardClientResource;
@@ -31,5 +30,10 @@ public class CreditCardClientController {
     @DeleteMapping
     public Mono<Void> delete(@RequestBody CreditCardClientDto creditCardClientDto){
         return creditCardClientResource.delete(creditCardClientDto);
+    }
+
+    @GetMapping("/numberDocument/{numberDocument}")
+    public Mono<CreditCardClientDto> findByClientNumberDocument(@PathVariable String numberDocument){
+        return creditCardClientResource.findByClientNumberDocument(numberDocument);
     }
 }

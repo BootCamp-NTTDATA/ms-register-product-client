@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @Document
-public class CreditClient extends BaseEntity{
+public class ClientCredit extends BaseEntity{
     private String code;
     private BigDecimal amountGiven;
     private BigDecimal amountPaid;

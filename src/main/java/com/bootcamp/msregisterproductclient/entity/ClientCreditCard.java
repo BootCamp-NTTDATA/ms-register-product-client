@@ -1,19 +1,16 @@
-package com.bootcamp.msregisterproductclient.dto;
+package com.bootcamp.msregisterproductclient.entity;
 
-import com.bootcamp.msregisterproductclient.entity.Client;
-import com.bootcamp.msregisterproductclient.entity.TypeCreditCard;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@JsonInclude(JsonInclude.Include.NON_NULL)
-public class CreditCardClientDto {
-    private String id;
+@Document
+public class ClientCreditCard extends BaseEntity {
     private String code;
     private String creditCardNumber;
     private BigDecimal limitAmount;

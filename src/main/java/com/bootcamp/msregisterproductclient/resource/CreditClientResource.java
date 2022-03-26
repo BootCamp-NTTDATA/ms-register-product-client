@@ -1,13 +1,12 @@
 package com.bootcamp.msregisterproductclient.resource;
 
 import com.bootcamp.msregisterproductclient.dto.CreditClientDto;
-import com.bootcamp.msregisterproductclient.entity.CreditClient;
+import com.bootcamp.msregisterproductclient.entity.ClientCredit;
 import com.bootcamp.msregisterproductclient.service.ICreditClientService;
 import com.bootcamp.msregisterproductclient.util.MapperUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -22,25 +21,25 @@ public class CreditClientResource extends MapperUtil {
 
     public Mono<CreditClientDto> create(CreditClientDto creditClientDto) {
 
-        CreditClient creditClient = map(creditClientDto, CreditClient.class);
+        ClientCredit clientCredit = map(creditClientDto, ClientCredit.class);
 
         String typDocumentClient = creditClientDto.getClient().getDocumentType();
 
         log.info(typDocumentClient);
 
         if (typDocumentClient.equals(TypeDocument.DNI.name()) || typDocumentClient.equals(TypeDocument.PASSPORT.name())){
-            if (creditClient.getTypeCredit().getAllowPerson()){
-                creditClient.setId(new ObjectId().toString());
-                creditClient.setCreatedAt(LocalDateTime.now());
-                Mono<CreditClient> entity = iCreditClientService.save(creditClient);
+            if (clientCredit.getTypeCredit().getAllowPerson()){
+                clientCredit.setId(new ObjectId().toString());
+                clientCredit.setCreatedAt(LocalDateTime.now());
+                Mono<ClientCredit> entity = iCreditClientService.save(clientCredit);
                 return  entity.map(x -> map(x, CreditClientDto.class));
             }
         }
         if (typDocumentClient.equals(TypeDocument.RUC.name())) {
-            if (creditClient.getTypeCredit().getAllowCompany()) {
-                creditClient.setId(new ObjectId().toString());
-                creditClient.setCreatedAt(LocalDateTime.now());
-                Mono<CreditClient> entity = iCreditClientService.save(creditClient);
+            if (clientCredit.getTypeCredit().getAllowCompany()) {
+                clientCredit.setId(new ObjectId().toString());
+                clientCredit.setCreatedAt(LocalDateTime.now());
+                Mono<ClientCredit> entity = iCreditClientService.save(clientCredit);
                 return entity.map(x -> map(x, CreditClientDto.class));
             }
         }
@@ -67,9 +66,9 @@ public class CreditClientResource extends MapperUtil {
         return iCreditClientService.findById(creditClientDto.getId())
                 .switchIfEmpty(Mono.error(new Exception()))
                 .flatMap(p->{
-                    CreditClient creditClient =  map(creditClientDto,CreditClient.class);
-                    creditClient.setUpdatedAt(LocalDateTime.now());
-                    return iCreditClientService.save(creditClient).map(y->map(y,CreditClientDto.class));
+                    ClientCredit clientCredit =  map(creditClientDto, ClientCredit.class);
+                    clientCredit.setUpdatedAt(LocalDateTime.now());
+                    return iCreditClientService.save(clientCredit).map(y->map(y,CreditClientDto.class));
                 });
     }
     public Mono<CreditClientDto> findById(String id) {

@@ -1,6 +1,6 @@
 package com.bootcamp.msregisterproductclient.service;
 
-import com.bootcamp.msregisterproductclient.entity.CreditClient;
+import com.bootcamp.msregisterproductclient.entity.ClientCredit;
 import com.bootcamp.msregisterproductclient.repository.ICreditClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,8 +14,8 @@ public class CreditClientServiceImpl implements ICreditClientService{
     ICreditClientRepository iCreditClientRepository;
 
     @Override
-    public Mono<CreditClient> save(CreditClient creditClient) {
-        return iCreditClientRepository.save(creditClient);
+    public Mono<ClientCredit> save(ClientCredit clientCredit) {
+        return iCreditClientRepository.save(clientCredit);
     }
 
     @Override
@@ -24,17 +24,17 @@ public class CreditClientServiceImpl implements ICreditClientService{
     }
 
     @Override
-    public Mono<CreditClient> findById(String id) {
+    public Mono<ClientCredit> findById(String id) {
         return iCreditClientRepository.findById(id);
     }
 
     @Override
-    public Flux<CreditClient> findAll() {
+    public Flux<ClientCredit> findAll() {
         return iCreditClientRepository.findAll();
     }
 
     @Override
-    public Mono<CreditClient> findByClientNumberDocument(String numberDocument) {
+    public Mono<ClientCredit> findByClientNumberDocument(String numberDocument) {
         return iCreditClientRepository.findByClientNumberDocument(numberDocument);
     }
 }
