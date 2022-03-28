@@ -7,14 +7,10 @@ import java.math.BigDecimal;
 
 @Getter
 @Setter
-public class TypeAccount {
-    private String idAccountType;
-    private BigDecimal maintenanceCommission;
-    private BigDecimal transactionCommission;
-    private BigDecimal minimumOpeningAmount;
-    private int numLimitMovements;
+public class TypeCredit {
+    private String idCreditType;
     private String type;
-    private int dayMovement;
+    private BigDecimal interestRateMonth;
     private Boolean allowCompany;
     private Boolean allowPerson;
     private Boolean needCreditCard;

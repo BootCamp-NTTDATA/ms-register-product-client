@@ -6,8 +6,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Client{
-    private String documentType;
+    private String idClient;
     private String numberDocument;
+    private String documentType;
     private String name;
-    private String clientType;
 }

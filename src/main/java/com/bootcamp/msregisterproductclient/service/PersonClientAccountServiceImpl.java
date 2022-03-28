@@ -6,11 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
 @Service
 public class PersonClientAccountServiceImpl implements IPersonClientAccountService{
 
     @Autowired
     IPersonClientAccountRepository iPersonClientAccountRepository;
+
     @Override
     public Mono<PersonClientAccount> save(PersonClientAccount personClientAccount) {
         return iPersonClientAccountRepository.save(personClientAccount);
@@ -31,8 +33,11 @@ public class PersonClientAccountServiceImpl implements IPersonClientAccountServi
         return iPersonClientAccountRepository.findAll();
     }
 
-    @Override
     public Mono<PersonClientAccount> findByAccountNumberAndDocument(String accountNumber, String numberDocument, String documentType) {
-        return iPersonClientAccountRepository.findByAccountNumberAndClientNumberDocumentAndClientDocumentType(accountNumber,numberDocument,documentType);
+        return iPersonClientAccountRepository.findByAccountNumberAndClientNumberDocumentAndClientDocumentType(accountNumber, numberDocument, documentType);
+    }
+    public Mono<PersonClientAccount> findByPersonNumberDocument(String numberDocument) {
+        return iPersonClientAccountRepository.findByPersonNumberDocument(numberDocument);
+
     }
 }

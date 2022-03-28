@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -12,9 +13,12 @@ import java.util.List;
 @Document
 public class CompanyClientAccount extends BaseEntity{
     private String code;
+    private BigDecimal amount;
     private String accountNumber;
     private LocalDateTime openingDate;
+    private Client company;
+    private List<Client> holders;
+    private List<Client> signers;
     private TypeAccount typeAccount;
-    private Client client;
-    private List<Responsible> responsible;
+    private boolean state;
 }

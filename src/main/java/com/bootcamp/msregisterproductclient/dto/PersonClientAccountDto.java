@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Getter
@@ -14,9 +15,10 @@ import java.time.LocalDateTime;
 public class PersonClientAccountDto {
     private String id;
     private String code;
+    private BigDecimal amount;
     private String accountNumber;
     private LocalDateTime openingDate;
+    private Client person;
     private TypeAccount typeAccount;
-    private Client client;
     private boolean state;
 }

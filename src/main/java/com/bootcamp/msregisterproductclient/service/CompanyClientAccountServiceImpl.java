@@ -32,4 +32,9 @@ public class CompanyClientAccountServiceImpl implements ICompanyClientAccountSer
     public Flux<CompanyClientAccount> findAll() {
         return iCompanyClientAccountRepository.findAll();
     }
+
+    @Override
+    public Mono<CompanyClientAccount> findByCompanyNumberDocument(String numberDocument) {
+        return iCompanyClientAccountRepository.findByCompanyNumberDocument(numberDocument);
+    }
 }
