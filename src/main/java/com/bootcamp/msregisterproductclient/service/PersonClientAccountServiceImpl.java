@@ -30,4 +30,9 @@ public class PersonClientAccountServiceImpl implements IPersonClientAccountServi
     public Flux<PersonClientAccount> findAll() {
         return iPersonClientAccountRepository.findAll();
     }
+
+    @Override
+    public Mono<PersonClientAccount> findByAccountNumberAndDocument(String accountNumber, String numberDocument, String documentType) {
+        return iPersonClientAccountRepository.findByAccountNumberAndClientNumberDocumentAndClientDocumentType(accountNumber,numberDocument,documentType);
+    }
 }
