@@ -5,6 +5,10 @@ import com.bootcamp.msregisterproductclient.util.ICrud;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Mono;
 
-public interface IPersonClientAccountService extends ICrud<PersonClientAccount, String> {
-    Mono<PersonClientAccount> findByPersonNumberDocument(String numberDocument);
+@Repository
+public interface IPersonClientAccountService  extends ICrud<PersonClientAccount, String> {
+     Mono<PersonClientAccount> findByAccountNumberAndDocument(String accountNumber, String numberDocument, String documentType);
+
+     Mono<PersonClientAccount> findByPersonNumberDocument(String numberDocument);
+
 }

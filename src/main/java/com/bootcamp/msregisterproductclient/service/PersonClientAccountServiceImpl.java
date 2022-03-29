@@ -33,8 +33,11 @@ public class PersonClientAccountServiceImpl implements IPersonClientAccountServi
         return iPersonClientAccountRepository.findAll();
     }
 
-    @Override
+    public Mono<PersonClientAccount> findByAccountNumberAndDocument(String accountNumber, String numberDocument, String documentType) {
+        return null;
+    }
     public Mono<PersonClientAccount> findByPersonNumberDocument(String numberDocument) {
         return iPersonClientAccountRepository.findByPersonNumberDocument(numberDocument);
+
     }
 }
