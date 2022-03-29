@@ -1,6 +1,7 @@
 package com.bootcamp.msregisterproductclient.controller;
 
 import com.bootcamp.msregisterproductclient.dto.PersonClientAccountDto;
+import com.bootcamp.msregisterproductclient.request.PersonClientAccountRequest;
 import com.bootcamp.msregisterproductclient.resource.PersonClientAccountResource;
 import com.bootcamp.msregisterproductclient.webclient.dto.PersonClientDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,8 @@ public class PersonClientAccountController {
     private PersonClientAccountResource personClientAccountResource;
 
     @PostMapping
-    public Mono<PersonClientAccountDto> create(@RequestBody PersonClientAccountDto personClientAccountDto){
-        return personClientAccountResource.create(personClientAccountDto);
+    public Mono<PersonClientAccountDto> create(@RequestBody PersonClientAccountRequest personClientAccountRequest){
+        return personClientAccountResource.create(personClientAccountRequest);
     }
 
     @PutMapping
@@ -38,5 +39,10 @@ public class PersonClientAccountController {
     @GetMapping("/numberDocument/{numberDocument}")
     public Mono<PersonClientAccountDto> findByPersonNumberDocument(@PathVariable String numberDocument){
         return personClientAccountResource.findByPersonNumberDocument(numberDocument);
+    }
+
+    @GetMapping("/find/client/{id}")
+    public Mono<PersonClientDto> findPersonClientbyId(@PathVariable String id){
+        return personClientAccountResource.findPersonClientbyId(id);
     }
 }

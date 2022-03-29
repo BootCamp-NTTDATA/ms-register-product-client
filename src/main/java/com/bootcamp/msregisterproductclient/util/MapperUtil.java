@@ -10,7 +10,6 @@ public  class MapperUtil {
 
     static ModelMapper modelMapper = new ModelMapper();
 
-
     public static <D, T> D map(final T entity, Class<D> outClass){
         return modelMapper.map(entity,outClass);
     }
@@ -21,22 +20,9 @@ public  class MapperUtil {
                 .collect(Collectors.toList());
     }
 
-    public enum TypeAccount{
-        CURRENTACCOUNT,
-        SAVINGACCOUNT,
-        DEPOSITACCOUNT
-    }
-
-    public enum TypeClient{
-        Company,
-        Person,
-    }
-
     public enum TypeDocument{
         DNI,
         PASSPORT,
         RUC
     }
-
-
 }
