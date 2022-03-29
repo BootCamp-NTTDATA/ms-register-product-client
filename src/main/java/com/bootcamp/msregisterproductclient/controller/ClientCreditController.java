@@ -8,7 +8,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/api/credit/client")
+@RequestMapping("/api/register/credit/client")
 public class ClientCreditController {
 
     @Autowired

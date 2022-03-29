@@ -9,7 +9,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/api/account/person")
+@RequestMapping("/api/register/account/person")
 public class PersonClientAccountController {
 
     @Autowired
