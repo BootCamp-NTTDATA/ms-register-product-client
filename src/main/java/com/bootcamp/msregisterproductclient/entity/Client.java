@@ -10,4 +10,7 @@ public class Client{
     private String numberDocument;
     private String documentType;
     private String name;
+    private String phone;
+    private String email;
+    private String imei;
 }
