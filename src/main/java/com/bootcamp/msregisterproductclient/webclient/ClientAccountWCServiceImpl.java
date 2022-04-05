@@ -4,6 +4,7 @@ import com.bootcamp.msregisterproductclient.exception.ClientNotFoundException;
 import com.bootcamp.msregisterproductclient.exception.ProductNotFoundException;
 import com.bootcamp.msregisterproductclient.webclient.dto.AccountDto;
 import com.bootcamp.msregisterproductclient.webclient.dto.CompanyClientDto;
+import com.bootcamp.msregisterproductclient.webclient.dto.CreditCardDto;
 import com.bootcamp.msregisterproductclient.webclient.dto.PersonClientDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -59,6 +60,20 @@ public class ClientAccountWCServiceImpl implements IClientAccountWCService {
                         return Mono.error(new ProductNotFoundException());
                     }
                     return  Mono.error(error);
+                });
+    }
+
+    @Override
+    public Mono<CreditCardDto> findCreditCardTypeById(String id) {
+        return webClient.baseUrl(URL_GATEWAY).build().get().uri("/api/product/credit-card/".concat(id))
+                .retrieve()
+                .bodyToMono(CreditCardDto.class)
+                .onErrorResume(error -> {
+                    WebClientResponseException response = (WebClientResponseException) error;
+                    if (response.getStatusCode() == HttpStatus.NOT_FOUND) {
+                        return Mono.error(new ProductNotFoundException());
+                    }
+                    return Mono.error(error);
                 });
     }
 }

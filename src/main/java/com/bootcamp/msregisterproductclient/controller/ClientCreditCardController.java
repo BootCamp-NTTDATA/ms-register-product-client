@@ -1,6 +1,7 @@
 package com.bootcamp.msregisterproductclient.controller;
 
 import com.bootcamp.msregisterproductclient.dto.ClientCreditCardDto;
+import com.bootcamp.msregisterproductclient.request.ClientCreditCardRequest;
 import com.bootcamp.msregisterproductclient.resource.ClientCreditCardResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,8 +15,8 @@ public class ClientCreditCardController {
     private ClientCreditCardResource clientCreditCardResource;
 
    @PostMapping
-    public Mono<ClientCreditCardDto> create(@RequestBody ClientCreditCardDto clientCreditCardDto){
-        return clientCreditCardResource.create(clientCreditCardDto);
+    public Mono<ClientCreditCardDto> create(@RequestBody ClientCreditCardRequest clientCreditCardRequest){
+        return clientCreditCardResource.create(clientCreditCardRequest);
     }
     @PutMapping
     public Mono<ClientCreditCardDto> update(@RequestBody ClientCreditCardDto clientCreditCardDto){

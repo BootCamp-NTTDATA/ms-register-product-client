@@ -1,8 +1,7 @@
-package com.bootcamp.msregisterproductclient.dto;
+package com.bootcamp.msregisterproductclient.request;
 
 import com.bootcamp.msregisterproductclient.entity.Client;
 import com.bootcamp.msregisterproductclient.entity.TypeCreditCard;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,9 +10,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@JsonInclude(JsonInclude.Include.NON_NULL)
-public class ClientCreditCardDto {
-    private String id;
+public class ClientCreditCardRequest {
     private String code;
     private String creditCardNumber;
     private BigDecimal limitAmount;
@@ -24,7 +21,7 @@ public class ClientCreditCardDto {
     private int limitDate;
     private LocalDateTime openingDate;
     private LocalDateTime deliveryDate;
-    private Client client;
-    private TypeCreditCard typeCreditCard;
+    private String idClient;
+    private String idTypeCreditCard;
     private boolean state;
 }

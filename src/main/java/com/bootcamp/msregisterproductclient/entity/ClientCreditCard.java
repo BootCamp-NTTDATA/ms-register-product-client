@@ -23,5 +23,5 @@ public class ClientCreditCard extends BaseEntity {
     private LocalDateTime deliveryDate;
     private Client client;
     private TypeCreditCard typeCreditCard;
-    private String state;
+    private boolean state;
 }
