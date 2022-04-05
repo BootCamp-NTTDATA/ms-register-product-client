@@ -36,18 +36,13 @@ public class PersonClientAccountController {
         return personClientAccountResource.delete(personClientAccountDto);
     }
 
-    /*@GetMapping("/account/{account}/document/{document}/type/{type}")
-    public Mono<PersonClientAccountDto> findByAccountNumberAndDocument(String account,String document,String type) {
-        return personClientAccountResource.findByAccountNumberAndDocument(account, document, type);
-
-    }*/
     @GetMapping("/numberDocument/{numberDocument}")
     public Mono<PersonClientAccountDto> findByPersonNumberDocument(@PathVariable String numberDocument){
         return personClientAccountResource.findByPersonNumberDocument(numberDocument);
     }
 
     @GetMapping("/find/client/{id}")
-    public Mono<PersonClientDto> findPersonClientbyId(@PathVariable String id){
-        return personClientAccountResource.findPersonClientbyId(id);
+    public Mono<PersonClientDto> findPersonClientById(@PathVariable String id){
+        return personClientAccountResource.findPersonClientById(id);
     }
 }

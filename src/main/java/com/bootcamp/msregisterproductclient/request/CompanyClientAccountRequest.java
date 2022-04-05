@@ -8,12 +8,12 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class PersonClientAccountRequest {
+public class CompanyClientAccountRequest {
     private String code;
     private BigDecimal amount;
     private String accountNumber;
     private LocalDateTime openingDate;
-    private String idPerson;
+    private String idCompany;
     private String idTypeAccount;
     private boolean state;
 }

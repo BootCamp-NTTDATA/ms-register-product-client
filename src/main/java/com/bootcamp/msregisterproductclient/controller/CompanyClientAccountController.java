@@ -1,7 +1,9 @@
 package com.bootcamp.msregisterproductclient.controller;
 
 import com.bootcamp.msregisterproductclient.dto.CompanyClientAccountDto;
+import com.bootcamp.msregisterproductclient.request.CompanyClientAccountRequest;
 import com.bootcamp.msregisterproductclient.resource.CompanyClientAccountResource;
+import com.bootcamp.msregisterproductclient.webclient.dto.CompanyClientDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
@@ -15,8 +17,8 @@ public class CompanyClientAccountController {
     private CompanyClientAccountResource companyClientAccountResource;
 
     @PostMapping
-    public Mono<CompanyClientAccountDto> create(@RequestBody CompanyClientAccountDto companyClientAccountDto){
-        return companyClientAccountResource.create(companyClientAccountDto);
+    public Mono<CompanyClientAccountDto> create(@RequestBody CompanyClientAccountRequest companyClientAccountRequest){
+        return companyClientAccountResource.create(companyClientAccountRequest);
     }
 
     @PutMapping
@@ -37,5 +39,10 @@ public class CompanyClientAccountController {
     @GetMapping("/numberDocument/{numberDocument}")
     public Mono<CompanyClientAccountDto> findByCompanyNumberDocument(@PathVariable String numberDocument){
         return companyClientAccountResource.findByCompanyNumberDocument(numberDocument);
+    }
+
+    @GetMapping("/find/company/{id}")
+    public Mono<CompanyClientDto> findCompanyClientById(@PathVariable String id){
+        return companyClientAccountResource.findCompanyClientById(id);
     }
 }

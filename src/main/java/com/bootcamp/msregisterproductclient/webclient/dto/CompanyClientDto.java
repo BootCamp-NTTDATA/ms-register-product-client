@@ -7,15 +7,13 @@ import lombok.Setter;
 @Getter
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PersonClientDto {
+public class CompanyClientDto {
     private String id;
     private String numberDocument;
     private String documentType;
     private String name;
-    private String lastName;
     private String address;
     private String phone;
     private String email;
-    private String gender;
-    private String imei;
+    private String tradeName;
 }
