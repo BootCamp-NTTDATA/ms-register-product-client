@@ -5,6 +5,8 @@ import com.bootcamp.msregisterproductclient.entity.Client;
 import com.bootcamp.msregisterproductclient.entity.CompanyClientAccount;
 import com.bootcamp.msregisterproductclient.entity.TypeAccount;
 import com.bootcamp.msregisterproductclient.request.CompanyClientAccountRequest;
+import com.bootcamp.msregisterproductclient.request.HolderRequest;
+import com.bootcamp.msregisterproductclient.request.SignerRequest;
 import com.bootcamp.msregisterproductclient.util.MapperUtil;
 import com.bootcamp.msregisterproductclient.service.ICompanyClientAccountService;
 import com.bootcamp.msregisterproductclient.webclient.ClientAccountWCServiceImpl;
@@ -17,6 +19,8 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+
 @Slf4j
 @Service
 public class CompanyClientAccountResource extends MapperUtil {
@@ -71,7 +75,9 @@ public class CompanyClientAccountResource extends MapperUtil {
                 .flatMap(p->{
                     CompanyClientAccount companyClientAccount =  map(companyClientAccountDto,CompanyClientAccount.class);
                     companyClientAccount.setUpdatedAt(LocalDateTime.now());
-                    return iCompanyClientAccountService.save(companyClientAccount).map(y->map(y,CompanyClientAccountDto.class));
+                    return iCompanyClientAccountService
+                            .save(companyClientAccount)
+                            .map( y -> map(y, CompanyClientAccountDto.class));
                 });
     }
 
@@ -85,6 +91,52 @@ public class CompanyClientAccountResource extends MapperUtil {
         return iCompanyClientAccountService.findById(companyClientAccountDto.getId())
                 .switchIfEmpty(Mono.error(new Exception()))
                 .flatMap(x-> iCompanyClientAccountService.deleteById(companyClientAccountDto.getId()));
+    }
+
+    public Mono<CompanyClientAccountDto> addSigner(SignerRequest signerRequest){
+        return iCompanyClientAccountService.findById(signerRequest.getIdRegister())
+                .switchIfEmpty(Mono.error(new Exception()))
+                .flatMap(x -> {
+                    Client signer = new Client();
+                    signer.setNumberDocument(signerRequest.getNumberDocument());
+                    signer.setDocumentType(signerRequest.getDocumentType());
+                    signer.setName(signerRequest.getName());
+                    signer.setEmail(signerRequest.getEmail());
+                    signer.setPhone(signerRequest.getPhone());
+                    if (x.getSigners() != null) {
+                        x.getSigners().add(signer);
+                    } else {
+                        ArrayList<Client> clientArrayList = new ArrayList<>();
+                        clientArrayList.add(signer);
+                        x.setSigners(clientArrayList);
+                    }
+                    return iCompanyClientAccountService
+                            .save(x)
+                            .map(y -> map(y, CompanyClientAccountDto.class));
+                });
+    }
+
+    public Mono<CompanyClientAccountDto> addHolder(HolderRequest holderRequest){
+        return iCompanyClientAccountService.findById(holderRequest.getIdRegister())
+                .switchIfEmpty(Mono.error(new Exception()))
+                .flatMap( x -> {
+                    Client holder = new Client();
+                    holder.setNumberDocument(holderRequest.getNumberDocument());
+                    holder.setDocumentType(holderRequest.getDocumentType());
+                    holder.setName(holderRequest.getName());
+                    holder.setEmail(holderRequest.getEmail());
+                    holder.setPhone(holderRequest.getPhone());
+                    if (x.getHolders() != null){
+                        x.getHolders().add(holder);
+                    } else {
+                        ArrayList<Client> clientArrayList = new ArrayList<>();
+                        clientArrayList.add(holder);
+                        x.setHolders(clientArrayList);
+                    }
+                    return iCompanyClientAccountService
+                            .save(x)
+                            .map(y -> map(y, CompanyClientAccountDto.class));
+                });
     }
 
     public Flux<CompanyClientAccountDto> findByCompanyNumberDocument(String numberDocument){

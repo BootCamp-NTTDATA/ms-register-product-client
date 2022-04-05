@@ -2,6 +2,8 @@ package com.bootcamp.msregisterproductclient.controller;
 
 import com.bootcamp.msregisterproductclient.dto.CompanyClientAccountDto;
 import com.bootcamp.msregisterproductclient.request.CompanyClientAccountRequest;
+import com.bootcamp.msregisterproductclient.request.HolderRequest;
+import com.bootcamp.msregisterproductclient.request.SignerRequest;
 import com.bootcamp.msregisterproductclient.resource.CompanyClientAccountResource;
 import com.bootcamp.msregisterproductclient.webclient.dto.CompanyClientDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,5 +46,15 @@ public class CompanyClientAccountController {
     @GetMapping("/find/company/{id}")
     public Mono<CompanyClientDto> findCompanyClientById(@PathVariable String id){
         return companyClientAccountResource.findCompanyClientById(id);
+    }
+
+    @PutMapping("/holder")
+    public Mono<CompanyClientAccountDto> addHolder(@RequestBody HolderRequest holderRequest) {
+        return companyClientAccountResource.addHolder(holderRequest);
+    }
+
+    @PutMapping("/signer")
+    public Mono<CompanyClientAccountDto> addSigner(@RequestBody SignerRequest signerRequest) {
+        return companyClientAccountResource.addSigner(signerRequest);
     }
 }
