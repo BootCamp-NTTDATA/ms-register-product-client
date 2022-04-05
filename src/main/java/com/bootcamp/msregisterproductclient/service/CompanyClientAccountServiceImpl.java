@@ -34,7 +34,7 @@ public class CompanyClientAccountServiceImpl implements ICompanyClientAccountSer
     }
 
     @Override
-    public Mono<CompanyClientAccount> findByCompanyNumberDocument(String numberDocument) {
+    public Flux<CompanyClientAccount> findByCompanyNumberDocument(String numberDocument) {
         return iCompanyClientAccountRepository.findByCompanyNumberDocument(numberDocument);
     }
 }

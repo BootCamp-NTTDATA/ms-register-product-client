@@ -37,7 +37,7 @@ public class CompanyClientAccountController {
     }
 
     @GetMapping("/numberDocument/{numberDocument}")
-    public Mono<CompanyClientAccountDto> findByCompanyNumberDocument(@PathVariable String numberDocument){
+    public Flux<CompanyClientAccountDto> findByCompanyNumberDocument(@PathVariable String numberDocument){
         return companyClientAccountResource.findByCompanyNumberDocument(numberDocument);
     }
 

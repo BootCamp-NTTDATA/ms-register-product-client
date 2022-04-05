@@ -89,7 +89,7 @@ public class PersonClientAccountResource extends MapperUtil {
                 .flatMap(x-> iPersonClientAccountService.deleteById(personClientAccountDto.getId()));
     }
 
-    public Mono<PersonClientAccountDto> findByPersonNumberDocument(String numberDocument){
+    public Flux<PersonClientAccountDto> findByPersonNumberDocument(String numberDocument){
         return iPersonClientAccountService.findByPersonNumberDocument(numberDocument)
                 .map(x -> map(x, PersonClientAccountDto.class));
     }
