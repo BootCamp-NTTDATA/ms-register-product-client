@@ -8,28 +8,27 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
-public class PersonClientWalletServiceImpl implements IPersonClientWalletService{
-
+public class PersonClientWalletServiceImpl implements  IPersonClientWalletService {
     @Autowired
-    IPersonClientWalletRepository iPersonClientWalletRepository;
-
+    private IPersonClientWalletRepository iPersonClientWalletRepository;
     @Override
     public Mono<PersonClientWallet> save(PersonClientWallet personClientWallet) {
         return iPersonClientWalletRepository.save(personClientWallet);
     }
-
     @Override
     public Mono<Void> deleteById(String s) {
         return iPersonClientWalletRepository.deleteById(s);
     }
-
     @Override
     public Mono<PersonClientWallet> findById(String s) {
         return iPersonClientWalletRepository.findById(s);
     }
-
     @Override
     public Flux<PersonClientWallet> findAll() {
         return iPersonClientWalletRepository.findAll();
+    }
+    @Override
+    public Mono<PersonClientWallet> findByPersonPhone(String phone) {
+        return iPersonClientWalletRepository.findByPersonPhone(phone);
     }
 }

@@ -13,8 +13,9 @@ import java.time.LocalDateTime;
 public class PersonClientWallet extends BaseEntity{
     private String code;
     private BigDecimal amount;
+    private String accountNumber;
     private LocalDateTime openingDate;
     private Client person;
-    private TypeWallet typeWallet;
+    private TypeAccount typeAccount;
     private boolean state;
 }

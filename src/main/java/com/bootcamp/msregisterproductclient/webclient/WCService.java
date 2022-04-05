@@ -10,5 +10,4 @@ public interface WCService {
     Mono<AccountDto> findAccountTypeById(String id);
     Mono<CreditCardDto> findCreditCardTypeById(String id);
     Mono<CreditDto> findCreditTypeById(String id);
-
 }

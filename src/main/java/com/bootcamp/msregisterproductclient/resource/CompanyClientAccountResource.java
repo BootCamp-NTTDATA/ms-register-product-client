@@ -93,7 +93,7 @@ public class CompanyClientAccountResource extends MapperUtil {
                 .flatMap(x-> iCompanyClientAccountService.deleteById(companyClientAccountDto.getId()));
     }
 
-    public Mono<CompanyClientAccountDto> addSigner(SignerRequest signerRequest){
+    public Mono<CompanyClientAccountDto> addSigner(SignerRequest signerRequest) {
         return iCompanyClientAccountService.findById(signerRequest.getIdRegister())
                 .switchIfEmpty(Mono.error(new Exception()))
                 .flatMap(x -> {
@@ -116,7 +116,7 @@ public class CompanyClientAccountResource extends MapperUtil {
                 });
     }
 
-    public Mono<CompanyClientAccountDto> addHolder(HolderRequest holderRequest){
+    public Mono<CompanyClientAccountDto> addHolder(HolderRequest holderRequest) {
         return iCompanyClientAccountService.findById(holderRequest.getIdRegister())
                 .switchIfEmpty(Mono.error(new Exception()))
                 .flatMap( x -> {

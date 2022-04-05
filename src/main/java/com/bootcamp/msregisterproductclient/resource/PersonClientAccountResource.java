@@ -93,4 +93,8 @@ public class PersonClientAccountResource extends MapperUtil {
         return iPersonClientAccountService.findByPersonNumberDocument(numberDocument)
                 .map(x -> map(x, PersonClientAccountDto.class));
     }
+
+    public Mono<PersonClientAccount> findByAccountNumber(String accountNumber){
+        return iPersonClientAccountService.findByPersonAccountNumber(accountNumber);
+    }
 }

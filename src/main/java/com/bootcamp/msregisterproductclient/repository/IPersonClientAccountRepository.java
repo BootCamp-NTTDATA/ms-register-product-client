@@ -9,4 +9,6 @@ import reactor.core.publisher.Mono;
 @Repository
 public interface IPersonClientAccountRepository extends ReactiveMongoRepository<PersonClientAccount, String> {
     Flux<PersonClientAccount> findByPersonNumberDocument(String numberDocument);
+    Mono<PersonClientAccount> findByAccountNumber(String accountNumber);
+    Mono<PersonClientAccount> findByPersonPhone(String numberDocument);
 }

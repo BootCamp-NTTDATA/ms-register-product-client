@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 public class PersonClientWalletDto {
     private String id;
     private String code;
+    private String imei;
     private BigDecimal amount;
     private LocalDateTime openingDate;
     private Client person;
