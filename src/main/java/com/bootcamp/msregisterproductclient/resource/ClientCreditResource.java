@@ -1,9 +1,13 @@
 package com.bootcamp.msregisterproductclient.resource;
 
 import com.bootcamp.msregisterproductclient.dto.ClientCreditDto;
+import com.bootcamp.msregisterproductclient.entity.Client;
 import com.bootcamp.msregisterproductclient.entity.ClientCredit;
+import com.bootcamp.msregisterproductclient.entity.TypeCredit;
+import com.bootcamp.msregisterproductclient.request.ClientCreditRequest;
 import com.bootcamp.msregisterproductclient.service.IClientCreditService;
 import com.bootcamp.msregisterproductclient.util.MapperUtil;
+import com.bootcamp.msregisterproductclient.webclient.WCServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,43 +23,49 @@ public class ClientCreditResource extends MapperUtil {
     @Autowired
     public IClientCreditService iClientCreditService;
 
-    public Mono<ClientCreditDto> create(ClientCreditDto clientCreditDto) {
+    @Autowired
+    private WCServiceImpl wcService;
 
-        ClientCredit clientCredit = map(clientCreditDto, ClientCredit.class);
+    public Mono<ClientCreditDto> create(ClientCreditRequest clientCreditRequest) {
+        return wcService.findPersonClientById(clientCreditRequest.getIdClient())
+            .switchIfEmpty(Mono.error(new Exception()))
+            .flatMap( clientDtoMono ->
+                wcService.findCreditTypeById(clientCreditRequest.getIdTypeCredit())
+                    .switchIfEmpty(Mono.error(new Exception()))
+                    .flatMap( creditDto -> {
+                        ClientCredit clientCredit = new ClientCredit();
+                        clientCredit.setId(new ObjectId().toString());
+                        clientCredit.setCreatedAt(LocalDateTime.now());
+                        clientCredit.setCode(clientCreditRequest.getCode());
+                        clientCredit.setAmountGiven(clientCreditRequest.getAmountGiven());
+                        clientCredit.setAmountPaid(clientCreditRequest.getAmountGiven());
+                        clientCredit.setFees(clientCredit.getFees());
+                        clientCredit.setFeesPaid(clientCreditRequest.getFeesPaid());
+                        clientCredit.setClient(map(clientDtoMono, Client.class));
+                        clientCredit.setTypeCredit(map(creditDto, TypeCredit.class));
+                        clientCredit.setState(clientCreditRequest.isState());
 
-        String typDocumentClient = clientCreditDto.getClient().getDocumentType();
+                        String typDocumentClient = clientCredit.getClient().getDocumentType();
 
-        log.info(typDocumentClient);
-
-        if (typDocumentClient.equals(TypeDocument.DNI.name()) || typDocumentClient.equals(TypeDocument.PASSPORT.name())){
-            if (clientCredit.getTypeCredit().getAllowPerson()){
-                clientCredit.setId(new ObjectId().toString());
-                clientCredit.setCreatedAt(LocalDateTime.now());
-                Mono<ClientCredit> entity = iClientCreditService.save(clientCredit);
-                return  entity.map(x -> map(x, ClientCreditDto.class));
-            }
-        }
-        if (typDocumentClient.equals(TypeDocument.RUC.name())) {
-            if (clientCredit.getTypeCredit().getAllowCompany()) {
-                clientCredit.setId(new ObjectId().toString());
-                clientCredit.setCreatedAt(LocalDateTime.now());
-                Mono<ClientCredit> entity = iClientCreditService.save(clientCredit);
-                return entity.map(x -> map(x, ClientCreditDto.class));
-            }
-        }
-        return null;
-        /*
-        else{
-            creditClient.setId(new ObjectId().toString());
-            creditClient.setCreatedAt(LocalDateTime.now());
-            Flux<CreditClientDto> temp = iCreditClientService.findAll()
-                    .filter(p->p.isState())
-                    .filter(t->t.getClient().getNumberDocument().equals(creditClientDto.getClient().getNumberDocument()))
-                    .switchIfEmpty(iCreditClientService.save(creditClient))
-                    .map(x->creditClientDto);
-            return Mono.from(temp);
-        }
-        */
+                        if (typDocumentClient.equals(TypeDocument.DNI.name()) || typDocumentClient.equals(TypeDocument.PASSPORT.name())){
+                            if (clientCredit.getTypeCredit().getAllowPerson()){
+                                clientCredit.setId(new ObjectId().toString());
+                                clientCredit.setCreatedAt(LocalDateTime.now());
+                                Mono<ClientCredit> entity = iClientCreditService.save(clientCredit);
+                                return  entity.map(x -> map(x, ClientCreditDto.class));
+                            }
+                        }
+                        if (typDocumentClient.equals(TypeDocument.RUC.name())) {
+                            if (clientCredit.getTypeCredit().getAllowCompany()) {
+                                clientCredit.setId(new ObjectId().toString());
+                                clientCredit.setCreatedAt(LocalDateTime.now());
+                                Mono<ClientCredit> entity = iClientCreditService.save(clientCredit);
+                                return entity.map(x -> map(x, ClientCreditDto.class));
+                            }
+                        }
+                        return null;
+                    })
+                );
     }
 
     public Flux<ClientCreditDto> findAll() {

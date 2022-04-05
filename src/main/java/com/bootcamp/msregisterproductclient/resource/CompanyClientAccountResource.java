@@ -9,7 +9,7 @@ import com.bootcamp.msregisterproductclient.request.HolderRequest;
 import com.bootcamp.msregisterproductclient.request.SignerRequest;
 import com.bootcamp.msregisterproductclient.util.MapperUtil;
 import com.bootcamp.msregisterproductclient.service.ICompanyClientAccountService;
-import com.bootcamp.msregisterproductclient.webclient.ClientAccountWCServiceImpl;
+import com.bootcamp.msregisterproductclient.webclient.WCServiceImpl;
 import com.bootcamp.msregisterproductclient.webclient.dto.CompanyClientDto;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
@@ -29,7 +29,7 @@ public class CompanyClientAccountResource extends MapperUtil {
     private ICompanyClientAccountService iCompanyClientAccountService;
 
     @Autowired
-    private ClientAccountWCServiceImpl clientWCService;
+    private WCServiceImpl clientWCService;
 
     public Mono<CompanyClientDto> findCompanyClientById(String id){
         Mono<CompanyClientDto> companyClientDtoMono = clientWCService.findCompanyClientById(id);

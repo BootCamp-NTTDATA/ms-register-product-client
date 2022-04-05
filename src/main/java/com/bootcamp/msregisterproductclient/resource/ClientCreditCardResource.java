@@ -7,7 +7,7 @@ import com.bootcamp.msregisterproductclient.entity.TypeCreditCard;
 import com.bootcamp.msregisterproductclient.request.ClientCreditCardRequest;
 import com.bootcamp.msregisterproductclient.service.IClientCreditCardService;
 import com.bootcamp.msregisterproductclient.util.MapperUtil;
-import com.bootcamp.msregisterproductclient.webclient.ClientAccountWCServiceImpl;
+import com.bootcamp.msregisterproductclient.webclient.WCServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class ClientCreditCardResource extends MapperUtil {
     private IClientCreditCardService iClientCreditCardService;
 
     @Autowired
-    private ClientAccountWCServiceImpl clientWCService;
+    private WCServiceImpl clientWCService;
 
     public Mono<ClientCreditCardDto> create(ClientCreditCardRequest creditCardRequest) {
         return clientWCService.findPersonClientById(creditCardRequest.getIdClient())

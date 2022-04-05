@@ -2,10 +2,7 @@ package com.bootcamp.msregisterproductclient.webclient;
 
 import com.bootcamp.msregisterproductclient.exception.ClientNotFoundException;
 import com.bootcamp.msregisterproductclient.exception.ProductNotFoundException;
-import com.bootcamp.msregisterproductclient.webclient.dto.AccountDto;
-import com.bootcamp.msregisterproductclient.webclient.dto.CompanyClientDto;
-import com.bootcamp.msregisterproductclient.webclient.dto.CreditCardDto;
-import com.bootcamp.msregisterproductclient.webclient.dto.PersonClientDto;
+import com.bootcamp.msregisterproductclient.webclient.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -14,7 +11,7 @@ import org.springframework.web.reactive.function.client.WebClientResponseExcepti
 import reactor.core.publisher.Mono;
 
 @Service
-public class ClientAccountWCServiceImpl implements IClientAccountWCService {
+public class WCServiceImpl implements WCService {
 
     private static final String URL_GATEWAY = "http://localhost:8080";
 
@@ -68,6 +65,20 @@ public class ClientAccountWCServiceImpl implements IClientAccountWCService {
         return webClient.baseUrl(URL_GATEWAY).build().get().uri("/api/product/credit-card/".concat(id))
                 .retrieve()
                 .bodyToMono(CreditCardDto.class)
+                .onErrorResume(error -> {
+                    WebClientResponseException response = (WebClientResponseException) error;
+                    if (response.getStatusCode() == HttpStatus.NOT_FOUND) {
+                        return Mono.error(new ProductNotFoundException());
+                    }
+                    return Mono.error(error);
+                });
+    }
+
+    @Override
+    public Mono<CreditDto> findCreditTypeById(String id) {
+        return webClient.baseUrl(URL_GATEWAY).build().get().uri("/api/product/credit/".concat(id))
+                .retrieve()
+                .bodyToMono(CreditDto.class)
                 .onErrorResume(error -> {
                     WebClientResponseException response = (WebClientResponseException) error;
                     if (response.getStatusCode() == HttpStatus.NOT_FOUND) {

@@ -7,7 +7,7 @@ import com.bootcamp.msregisterproductclient.entity.TypeAccount;
 import com.bootcamp.msregisterproductclient.request.PersonClientAccountRequest;
 import com.bootcamp.msregisterproductclient.service.IPersonClientAccountService;
 import com.bootcamp.msregisterproductclient.util.MapperUtil;
-import com.bootcamp.msregisterproductclient.webclient.ClientAccountWCServiceImpl;
+import com.bootcamp.msregisterproductclient.webclient.WCServiceImpl;
 import com.bootcamp.msregisterproductclient.webclient.dto.PersonClientDto;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
@@ -25,7 +25,7 @@ public class PersonClientAccountResource extends MapperUtil {
     private IPersonClientAccountService iPersonClientAccountService;
 
     @Autowired
-    private ClientAccountWCServiceImpl clientWCService;
+    private WCServiceImpl clientWCService;
 
     public Mono<PersonClientDto> findPersonClientById(String id){
         Mono<PersonClientDto> personClientDtoMono = clientWCService.findPersonClientById(id);
